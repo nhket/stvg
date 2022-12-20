@@ -1,0 +1,54 @@
+// SmartDemoDlg.h : Í·ÎÄ¼þ
+//
+
+#pragma once
+#include "afxcmn.h"
+#include "afxwin.h"
+#include "VideoDlg.h"
+#include "SDK.h"
+#include "ParaDlg.h"
+class CSmartDemoDlg : public CDialog
+{
+public:
+	CSmartDemoDlg(CWnd* pParent = NULL);	// ±ê×¼¹¹Ôìº¯Êý
+	enum { IDD = IDD_SMARTDEMO_DIALOG };
+	protected:
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV Ö§³Ö
+protected:
+	HICON m_hIcon;
+	virtual BOOL OnInitDialog();
+	afx_msg void OnPaint();
+	afx_msg HCURSOR OnQueryDragIcon();
+	DECLARE_MESSAGE_MAP()
+public:
+	CIPAddressCtrl m_Ip;
+	CString m_UserName;
+	CString m_PassWord;
+	CButton m_LoginBTN;
+	CButton m_ExitBTN;
+	CButton m_PlayVideBTN;
+	NvdHandle m_hDev;
+	CStatic m_ctrlVideoWin;
+	VideoDlg m_ctrlVideoDlg;
+	CButton m_CloseVideoBTN;
+	CButton m_ParamBTN;
+	SOCKET sVdcp;
+	SOCKET sFaceCmd;
+	SOCKET sFaceNotify;
+	CButton m_RegBTN;
+	int m_RegFlag;
+	
+	afx_msg void OnBnClickedOk();
+	afx_msg void OnBnClickedCancel();
+	afx_msg void OnBnClickedLogout();
+	afx_msg void OnBnClickedLogin();
+	BOOL CSmartDemoDlg::ShowImage(CDC* pDC,CString strPath, int x, int y);
+	afx_msg void OnBnClickedButtonOpenvideo();
+	afx_msg void OnBnClickedButtonClosevideo();
+	afx_msg void OnBnClickedButtonParam();
+	CStatic m_ctrlSimilarity;
+	afx_msg void OnBnClickedButtonRegister();
+	void registerCallback(void *pPara, SmartRegClientHandle regHandle, SmartRegClientInfo regInfo);
+	LRESULT OnDisconnectMsg(WPARAM wParam, LPARAM lParam);
+	void hello_Thread();
+};
